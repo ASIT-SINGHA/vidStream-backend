@@ -10,6 +10,8 @@ import { json } from "express";
 const options = {
 	httpOnly: true,
 	secure: true,
+	sameSite: "lax",
+  	path: "/",
 };
 
 const generateAccessTokenAndRefreshToken = async (userId) => {
