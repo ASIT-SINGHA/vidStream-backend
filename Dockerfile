@@ -1,15 +1,20 @@
-FROM node:18-alpine
+FROM node:24-bookworm-slim
+
+ENV NODE_ENV production
 
 WORKDIR /backend_app
 
-COPY package*.json ./
+COPY --chown=node:node package*.json ./
 
-RUN npm install
+RUN npm ci --only=production
 
-COPY . .
+COPY --chown=node:node . /
 
-ENV PORT=8000
+USER node 
 
-EXPOSE 8000
 
-CMD ["npm", "start"]
+ENV PORT=4000
+
+EXPOSE 4000
+
+CMD ["node", "src/index.js"]
